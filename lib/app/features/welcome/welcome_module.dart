@@ -7,6 +7,6 @@ class WelcomeModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => WelcomePage()),
+    ChildRoute(Modular.initialRoute, child: (_, args) => const WelcomePage()),
   ];
 }

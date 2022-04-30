@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData get theme => ThemeData(
-        scaffoldBackgroundColor: AppColors.bgColor,
         colorScheme: colorScheme,
-        useMaterial3: true,
       );
 
   static ColorScheme get colorScheme => const ColorScheme(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         primary: AppColors.bgColor,
         onPrimary: Colors.white,
         secondary: Colors.black,
@@ -18,7 +16,7 @@ class AppTheme {
         onError: Colors.white,
         background: AppColors.bgColor,
         onBackground: Colors.white,
-        surface: Colors.white,
-        onSurface: Colors.red,
+        surface: AppColors.bgColor,
+        onSurface: Colors.white,
       );
 }
