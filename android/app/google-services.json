@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "897739130442",
+    "project_id": "favoritospix",
+    "storage_bucket": "favoritospix.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897739130442:android:b43b5d88dea27f6fba48b3",
+        "android_client_info": {
+          "package_name": "com.example.favoritospix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "897739130442-fjhs05ghgjotq7d6eetvfb31j01ujp36.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNGG0BZnjZpxgVvapn92mv03IZeCIU_Do"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "897739130442-fjhs05ghgjotq7d6eetvfb31j01ujp36.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

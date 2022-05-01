@@ -23,9 +23,9 @@ class WelcomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: const [
                 Spacer(),
-                _Body(),
+                _BodyWidget(),
                 Spacer(),
-                _Button(),
+                _ButtonWidget(),
               ],
             ),
           ),
@@ -35,8 +35,8 @@ class WelcomePage extends StatelessWidget {
   }
 }
 
-class _Button extends StatelessWidget {
-  const _Button({
+class _ButtonWidget extends StatelessWidget {
+  const _ButtonWidget({
     Key? key,
   }) : super(key: key);
 
@@ -61,8 +61,8 @@ class _Button extends StatelessWidget {
   }
 }
 
-class _Body extends StatelessWidget {
-  const _Body({
+class _BodyWidget extends StatelessWidget {
+  const _BodyWidget({
     Key? key,
   }) : super(key: key);
 
@@ -76,14 +76,14 @@ class _Body extends StatelessWidget {
         const SizedBox(height: 16),
         AutoSizeText(
           'Bem vindo ao Favoritos Pix',
-          style: GoogleFonts.montserrat(fontSize: 24, color: textColor),
+          style: GoogleFonts.montserrat(fontSize: 26, color: textColor),
           maxLines: 1,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 8),
         AutoSizeText(
           'Ferramenta para gerenciamento de lista de favoritos de chaves pix',
-          style: GoogleFonts.montserrat(fontSize: 12, color: textColor),
+          style: GoogleFonts.montserrat(fontSize: 16, color: textColor),
           maxLines: 3,
           textAlign: TextAlign.center,
         ),
