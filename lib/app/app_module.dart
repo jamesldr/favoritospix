@@ -25,7 +25,7 @@ class AppModule extends Module {
     ModuleRoute(
       '/home/details',
       module: DetailsModule(),
-      transition: TransitionType.downToUp,
+      transition: TransitionType.fadeIn,
     ),
   ];
 }

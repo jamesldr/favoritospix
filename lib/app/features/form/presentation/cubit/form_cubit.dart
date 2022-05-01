@@ -37,4 +37,20 @@ class FormCubit extends Cubit<FormPageState> {
       Modular.to.pop();
     }
   }
+
+  Future onEdit(FormState? currentState, FavoritePixModel model) async {
+    final _model = FavoritePixModel(
+      id: model.id,
+      name: state.name ?? model.name,
+      pixKey: state.pixKey ?? model.pixKey,
+      cpfCnpj: state.cpfCnpj ?? model.cpfCnpj,
+      bankBranch: state.bankBranch ?? model.bankBranch,
+      bankNumber: state.bankAccount ?? model.bankNumber,
+      bankName: state.bankName ?? model.bankName,
+      registerDate: model.registerDate,
+      lastUpdate: DateTime.now(),
+    );
+    await repository.updateFavorite(_model);
+    Modular.to.pop();
+  }
 }
