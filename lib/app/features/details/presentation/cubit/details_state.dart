@@ -1,10 +1,18 @@
 part of 'details_cubit.dart';
 
-abstract class DetailsState extends Equatable {
-  const DetailsState();
+class DetailsState extends Equatable {
+  const DetailsState({this.model});
+
+  final FavoritePixModel? model;
 
   @override
-  List<Object> get props => [];
-}
+  List get props => [model];
 
-class DetailsInitial extends DetailsState {}
+  DetailsState copyWith({
+    FavoritePixModel? model,
+  }) {
+    return DetailsState(
+      model: model ?? this.model,
+    );
+  }
+}

@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:favoritospix/app/features/home/presentation/cubit/home_cubit.dart';
-import 'package:favoritospix/app/features/home/presentation/widgets/confirm_delete_modal.dart';
-import 'package:favoritospix/core/data/models/favorite_pix_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:favoritospix/app/features/home/presentation/cubit/home_cubit.dart';
+import 'package:favoritospix/app/features/home/presentation/widgets/confirm_delete_modal.dart';
+import 'package:favoritospix/core/data/models/favorite_pix_model.dart';
 import 'package:favoritospix/core/domain/entities/favorite_pix.dart';
 import 'package:favoritospix/utils/app_colors.dart';
 
@@ -15,11 +15,10 @@ class FavoriteListItem extends StatelessWidget {
   FavoriteListItem({
     Key? key,
     required this.model,
-    this.onTap,
   }) : super(key: key);
 
   final FavoritePix model;
-  final Function(FavoritePix)? onTap;
+
   final HomeCubit cubit = Modular.get();
 
   @override

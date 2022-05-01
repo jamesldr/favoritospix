@@ -52,17 +52,14 @@ class _HomePageState extends State<HomePage> {
                     builder: (context, HomeState state) {
                       return Column(
                         children: [
-                          HomePageHeaderCard(mockList: state.favorites ?? []),
+                          HomePageHeaderCard(favorites: state.favorites ?? []),
                           ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: state.favorites?.length ?? 0,
                             itemBuilder: (_, i) {
                               final _model = state.favorites![i];
-                              return FavoriteListItem(
-                                model: _model,
-                                onTap: (_model) {},
-                              );
+                              return FavoriteListItem(model: _model);
                             },
                           ),
                         ],

@@ -8,10 +8,10 @@ import 'package:favoritospix/utils/app_colors.dart';
 class HomePageHeaderCard extends StatelessWidget {
   const HomePageHeaderCard({
     Key? key,
-    required this.mockList,
+    required this.favorites,
   }) : super(key: key);
 
-  final List<FavoritePix> mockList;
+  final List<FavoritePix> favorites;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class HomePageHeaderCard extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: AutoSizeText(
-                    mockList.length.toString(),
+                    favorites.length.toString(),
                     maxLines: 1,
                     style: GoogleFonts.montserrat(
                       color: Colors.white,

@@ -134,8 +134,48 @@ class FormEditPage extends StatelessWidget {
                         child: SizedBox(
                           height: 56,
                           child: ElevatedButton(
-                              onPressed: () =>
-                                  cubit.onEdit(formKey.currentState, model),
+                              onPressed: () {
+                                cubit
+                                    .onEdit(formKey.currentState, model)
+                                    .then((value) =>
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: AppColors.bgColor,
+                                            content: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Favorito editado com sucesso",
+                                                  style: GoogleFonts.montserrat(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ))
+                                    .onError((error, stackTrace) =>
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: AppColors.bgColor,
+                                            content: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Falha ao editar favorito",
+                                                  style: GoogleFonts.montserrat(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ));
+                              },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(

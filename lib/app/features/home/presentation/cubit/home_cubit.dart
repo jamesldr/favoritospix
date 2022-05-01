@@ -13,7 +13,7 @@ class HomeCubit extends Cubit<HomeState> {
   final FavoritesRepository repository;
 
   Future getFavorites() async {
-    final _list = repository.getFavorites().listen(
+    repository.getFavorites().listen(
       (event) {
         emit(state.copyWith(favorites: event));
       },

@@ -35,4 +35,11 @@ class FavoritesDatasource implements FavoritesRepository {
         .doc(model.id)
         .update(model.toJson());
   }
+
+  @override
+  Stream<FavoritePix> getFavoriteById(String id) {
+    return firestore.collection("favoritos").doc(id).snapshots().map((query) {
+      return FavoritePixModel.fromJson(query);
+    });
+  }
 }

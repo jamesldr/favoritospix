@@ -1,5 +1,7 @@
+import 'package:favoritospix/utils/data_formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,12 +9,27 @@ import 'package:favoritospix/core/data/models/favorite_pix_model.dart';
 import 'package:favoritospix/core/presentation/widgets/app_scaffold.dart';
 import 'package:favoritospix/utils/app_colors.dart';
 
-class DetailsPage extends StatelessWidget {
-  const DetailsPage({
+import '../cubit/details_cubit.dart';
+
+class DetailsPage extends StatefulWidget {
+  DetailsPage({
     Key? key,
     required this.model,
   }) : super(key: key);
-  final FavoritePixModel model;
+  FavoritePixModel model;
+
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  final DetailsCubit cubit = Modular.get();
+
+  @override
+  void initState() {
+    cubit.getFavoriteStream(widget.model);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +37,17 @@ class DetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Informações do contato'),
         actions: [
-          IconButton(
-              onPressed: () {
-                Modular.to.pushNamed('/form/edit/', arguments: model);
-              },
-              icon: const Icon(Icons.edit))
+          BlocBuilder(
+            bloc: cubit,
+            builder: (_, DetailsState state) {
+              return IconButton(
+                onPressed: () {
+                  Modular.to.pushNamed('/form/edit/', arguments: state.model);
+                },
+                icon: const Icon(Icons.edit),
+              );
+            },
+          )
         ],
       ),
       body: AppScaffoldBody(
@@ -35,20 +58,32 @@ class DetailsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 32),
-                Center(
-                  child: Text(
-                    model.name ?? '',
-                    style: GoogleFonts.montserrat(
-                      color: AppColors.bgColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                    ),
-                  ),
+                BlocBuilder(
+                  bloc: cubit,
+                  builder: (context, DetailsState state) {
+                    return Center(
+                      child: Text(
+                        state.model?.name ?? '',
+                        style: GoogleFonts.montserrat(
+                          color: AppColors.bgColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                        ),
+                      ),
+                    );
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0)
-                      .copyWith(top: 16),
-                  child: _Row(label: 'CPF/CNPJ:', value: model.cpfCnpj ?? ''),
+                BlocBuilder(
+                  bloc: cubit,
+                  builder: (context, DetailsState state) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0)
+                          .copyWith(top: 16),
+                      child: _Row(
+                          label: 'CPF/CNPJ:',
+                          value: state.model?.cpfCnpj ?? ''),
+                    );
+                  },
                 ),
                 Card(
                   child: Padding(
@@ -65,20 +100,38 @@ class DetailsPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0)
                               .copyWith(top: 16),
-                          child: _Row(
-                              label: 'Banco:', value: model.bankName ?? ''),
+                          child: BlocBuilder(
+                            bloc: cubit,
+                            builder: (context, DetailsState state) {
+                              return _Row(
+                                  label: 'Banco:',
+                                  value: state.model?.bankName ?? '');
+                            },
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0)
                               .copyWith(top: 16),
-                          child: _Row(
-                              label: 'Agencia:', value: model.bankBranch ?? ''),
+                          child: BlocBuilder(
+                            bloc: cubit,
+                            builder: (context, DetailsState state) {
+                              return _Row(
+                                  label: 'Agencia:',
+                                  value: state.model?.bankBranch ?? '');
+                            },
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0)
                               .copyWith(top: 16),
-                          child: _Row(
-                              label: 'Conta:', value: model.bankNumber ?? ''),
+                          child: BlocBuilder(
+                            bloc: cubit,
+                            builder: (context, DetailsState state) {
+                              return _Row(
+                                  label: 'Conta:',
+                                  value: state.model?.bankNumber ?? '');
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -96,18 +149,22 @@ class DetailsPage extends StatelessWidget {
                             style: GoogleFonts.montserrat(
                               color: AppColors.bgColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
                             ),
                           ),
                         ),
                         const SizedBox(height: 32),
                         Center(
-                          child: Text(
-                            model.pixKey,
-                            style: GoogleFonts.montserrat(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          child: BlocBuilder(
+                            bloc: cubit,
+                            builder: (context, DetailsState state) {
+                              return Text(
+                                state.model?.pixKey ?? '',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+                            },
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -131,7 +188,56 @@ class DetailsPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Center(
+                          child: Text(
+                            'Registro de Favorito',
+                            style: GoogleFonts.montserrat(
+                              color: AppColors.bgColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0)
+                              .copyWith(top: 16),
+                          child: BlocBuilder(
+                            bloc: cubit,
+                            builder: (context, DetailsState state) {
+                              return _Row(
+                                label: 'Criado em:',
+                                value: DataFormatters.formatDate(
+                                  state.model?.registerDate ??
+                                      widget.model.registerDate!,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0)
+                              .copyWith(top: 16),
+                          child: BlocBuilder(
+                            bloc: cubit,
+                            builder: (context, DetailsState state) {
+                              return _Row(
+                                label: 'Atualizado em:',
+                                value: DataFormatters.formatDate(
+                                    state.model?.lastUpdate ??
+                                        widget.model.lastUpdate!),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -141,24 +247,42 @@ class DetailsPage extends StatelessWidget {
   }
 
   void _copyKey(BuildContext context) {
-    Clipboard.setData(ClipboardData(text: model.pixKey)).then(
-      (value) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: AppColors.bgColor,
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Chave PIX copiada com sucesso",
-                style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.bold,
-                ),
+    Clipboard.setData(ClipboardData(text: widget.model.pixKey))
+        .then(
+          (value) => ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: AppColors.bgColor,
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Chave PIX copiada com sucesso",
+                    style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        )
+        .onError(
+            (error, stackTrace) => ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: AppColors.bgColor,
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Não foi possível copiar Chave PIX",
+                          style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ));
   }
 }
 
