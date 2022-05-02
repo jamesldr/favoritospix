@@ -1,16 +1,19 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:favoritospix/core/data/models/favorite_pix_model.dart';
 import 'package:favoritospix/core/data/repositories/favorites_datasource.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 part 'form_page_state.dart';
 
 class FormCubit extends Cubit<FormPageState> {
-  FormCubit(this.repository) : super(const FormPageState());
+  FormCubit() : super(const FormPageState());
 
-  final FavoritesDatasource repository;
+  final FavoritesDatasource repository =
+      FavoritesDatasource(FirebaseFirestore.instance);
 
   nameOnChanged(String? v) => emit(state.copyWith(name: v));
   docOnChanged(String? v) => emit(state.copyWith(cpfCnpj: v));

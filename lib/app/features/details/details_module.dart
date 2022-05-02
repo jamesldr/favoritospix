@@ -5,7 +5,7 @@ import 'presentation/pages/details_page.dart';
 
 class DetailsModule extends Module {
   @override
-  final List<Bind> binds = [Bind.lazySingleton((i) => DetailsCubit(i()))];
+  final List<Bind> binds = [Bind.lazySingleton((i) => DetailsCubit())];
 
   @override
   final List<ModularRoute> routes = [

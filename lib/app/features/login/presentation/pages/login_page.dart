@@ -2,6 +2,7 @@ import 'package:favoritospix/utils/app_assets.dart';
 
 import 'package:favoritospix/utils/app_form_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -107,13 +108,27 @@ class LoginForm extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: TextFormField(
-                  onChanged: cubit.passwordOnChanged,
-                  validator: cubit.passwordValidator,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: inputDecoration.copyWith(
-                    label: const Text('Senha'),
-                  ),
+                child: BlocBuilder(
+                  bloc: cubit,
+                  builder: (context, LoginState state) {
+                    return TextFormField(
+                      onChanged: cubit.passwordOnChanged,
+                      validator: cubit.passwordValidator,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      obscureText: !(state.pwVisible),
+                      decoration: inputDecoration.copyWith(
+                        label: const Text('Senha'),
+                        suffixIcon: IconButton(
+                          onPressed: cubit.toggleVisibility,
+                          icon: Icon(
+                            state.pwVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
               Row(
@@ -122,11 +137,14 @@ class LoginForm extends StatelessWidget {
                     child: SizedBox(
                       height: 56,
                       child: ElevatedButton(
-                          onPressed: () => cubit.login(context),
+                          onPressed: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            cubit.login(context);
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'Login'.toUpperCase(),
+                              'Login/Cadastro'.toUpperCase(),
                               style: GoogleFonts.montserrat(
                                 fontWeight: FontWeight.bold,
                               ),

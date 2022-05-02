@@ -92,4 +92,8 @@ class LoginCubit extends Cubit<LoginState> {
       );
     }
   }
+
+  void toggleVisibility() {
+    emit(state.copyWith(pwVisible: !(state.pwVisible)));
+  }
 }

@@ -6,7 +6,7 @@ import 'presentation/pages/form_page.dart';
 
 class FormModule extends Module {
   @override
-  final List<Bind> binds = [Bind.lazySingleton((i) => FormCubit(i()))];
+  final List<Bind> binds = [Bind.lazySingleton((i) => FormCubit())];
 
   @override
   final List<ModularRoute> routes = [

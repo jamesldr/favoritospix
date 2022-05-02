@@ -15,7 +15,6 @@ import 'splash/splash_module.dart';
 class AppModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.lazySingleton((i) => FavoritesDatasource(FirebaseFirestore.instance)),
     Bind.lazySingleton((i) => AuthDatasource(FirebaseAuth.instance)),
     Bind.lazySingleton((i) => AuthWrapper(i())),
   ];

@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:favoritospix/core/data/models/favorite_pix_model.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthDatasource {
-  final auth.FirebaseAuth firebaseAuth;
+  final FirebaseAuth firebaseAuth;
+
+  final _firestore = FirebaseFirestore.instance;
   AuthDatasource(this.firebaseAuth);
 
-  Stream<auth.User?> get authStateChanges => firebaseAuth.authStateChanges();
+  Stream<User?> get authStateChanges => firebaseAuth.authStateChanges();
 
   Future<String> signIn(String email, String password) async {
     try {
@@ -16,14 +17,12 @@ class AuthDatasource {
         password: password,
       )
           .then((creds) {
-        FirebaseFirestore.instance
-            .collection('favoritos')
-            .doc(creds.user!.uid)
-            .set(FavoritePixModel(pixKey: '').toJson());
+        _firestore.collection(creds.user!.uid).doc();
+        // .set(FavoritePixModel(pixKey: '').toJson());
       });
 
       return 'Signed In';
-    } on auth.FirebaseAuthException {
+    } on FirebaseAuthException {
       rethrow;
     }
   }
@@ -36,11 +35,12 @@ class AuthDatasource {
         password: password,
       )
           .then((creds) {
-        FirebaseFirestore.instance.collection((creds.user!.uid)).doc().set({});
+        _firestore.collection((creds.user!.uid)).doc();
+        // .set(FavoritePixModel(pixKey: '').toJson());
       });
 
       return 'Signed Up';
-    } on auth.FirebaseAuthException {
+    } on FirebaseAuthException {
       rethrow;
     }
   }
