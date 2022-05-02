@@ -1,16 +1,23 @@
 # favoritospix
 
-A new Flutter project.
+App para armazenar chaves pix, utilizando firebase (firestore e auth)
 
-## Getting Started
+Para iniciar a aplicação basta seguir esses passos:
 
-This project is a starting point for a Flutter application.
+## 1 - Baixar os packages utilizados 
+```bash
+$flutter pub get 
+```
+## 2 - Rodar aplicação em dispositivo móvel ou emulador 
+```bash
+$flutter run 
+```
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Outra opção é gerar o próprio arquivo apk
+```bash
+$flutter build apk
+```
+ou
+```bash
+$flutter build apk --split-per-abi
+```
