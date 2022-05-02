@@ -1,4 +1,3 @@
-import 'package:favoritospix/core/data/models/favorite_pix_model.dart';
 import 'package:favoritospix/core/domain/entities/favorite_pix.dart';
 
 abstract class FavoritesRepository {

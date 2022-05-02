@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:favoritospix/app/features/welcome/presentation/widgets/auth_wrapper.dart';
 import 'package:favoritospix/utils/app_assets.dart';
 import 'package:favoritospix/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -42,9 +43,10 @@ class _ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthWrapper wrapper = Modular.get();
     return ElevatedButton(
-      onPressed: () {
-        Modular.to.pushReplacementNamed('/home/');
+      onPressed: () async {
+        Modular.to.pushReplacementNamed(await wrapper());
       },
       child: Text(
         'Continuar',

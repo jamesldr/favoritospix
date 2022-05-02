@@ -42,13 +42,13 @@ class FavoritePixModel extends FavoritePix {
   Map<String, dynamic> toJson() {
     return {
       "chave": pixKey,
-      "nome": name,
-      'agencia': bankBranch,
-      'banco': bankName,
-      'conta': bankNumber,
-      'cpfCnpj': cpfCnpj,
-      'updatedAt': Timestamp.fromDate(lastUpdate!),
-      'createdAt': Timestamp.fromDate(registerDate!),
+      "nome": name ?? '',
+      'agencia': bankBranch ?? '',
+      'banco': bankName ?? '',
+      'conta': bankNumber ?? '',
+      'cpfCnpj': cpfCnpj ?? '',
+      'updatedAt': Timestamp.fromDate(lastUpdate ?? DateTime.now()),
+      'createdAt': Timestamp.fromDate(registerDate ?? DateTime.now()),
     };
   }
 }

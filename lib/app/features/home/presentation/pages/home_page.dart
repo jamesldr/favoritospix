@@ -1,20 +1,19 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:favoritospix/app/features/form/presentation/pages/form_page.dart';
 import 'package:favoritospix/app/features/home/presentation/cubit/home_cubit.dart';
 import 'package:favoritospix/app/features/home/presentation/widgets/add_pix_key_modal.dart';
 import 'package:favoritospix/app/features/home/presentation/widgets/favorite_list_item.dart';
 import 'package:favoritospix/app/features/home/presentation/widgets/home_page_header_card.dart';
-import 'package:favoritospix/core/data/models/favorite_pix_model.dart';
 import 'package:favoritospix/core/presentation/widgets/app_scaffold.dart';
 
 import 'package:favoritospix/utils/app_assets.dart';
 import 'package:favoritospix/utils/app_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -91,6 +90,14 @@ class _AppBar extends PreferredSize {
                 ),
               ],
             ),
+            actions: [
+              IconButton(
+                onPressed: () async => (FirebaseAuth.instance.signOut()).then(
+                  (v) => Modular.to.pushReplacementNamed('/welcome/'),
+                ),
+                icon: const Icon(Icons.logout),
+              )
+            ],
           ),
           preferredSize: AppBar().preferredSize,
         );

@@ -8,7 +8,7 @@ import 'package:favoritospix/core/domain/repositories/favorites_repository.dart'
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this.repository) : super(_InitialState());
+  HomeCubit(this.repository) : super(HomeState());
 
   final FavoritesRepository repository;
 
