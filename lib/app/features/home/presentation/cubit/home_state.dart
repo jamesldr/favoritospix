@@ -1,8 +1,8 @@
 part of 'home_cubit.dart';
 
 class HomeState extends Equatable {
-  List<FavoritePix>? favorites;
-  HomeState({this.favorites});
+  final List<FavoritePix>? favorites;
+  const HomeState({this.favorites});
 
   @override
   List get props => [favorites];

@@ -6,15 +6,16 @@ class AuthWrapper {
   final AuthDatasource datasource;
   AuthWrapper(this.datasource);
   Future<String> call() async {
-    User? _result;
-    datasource.authStateChanges.listen((event) {}).onData((data) {
-      _result = data;
+    String? _result;
+
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        _result = '/login/';
+      } else {
+        _result = '/home/';
+      }
     });
 
-    if (_result != null) {
-      return Future.value('/home/');
-    } else {
-      return Future.value('/login/');
-    }
+    return Future.value(_result ?? '/login/');
   }
 }

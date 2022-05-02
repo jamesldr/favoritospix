@@ -12,11 +12,11 @@ import 'package:favoritospix/utils/app_colors.dart';
 import '../cubit/details_cubit.dart';
 
 class DetailsPage extends StatefulWidget {
-  DetailsPage({
+  const DetailsPage({
     Key? key,
     required this.model,
   }) : super(key: key);
-  FavoritePixModel model;
+  final FavoritePixModel model;
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();

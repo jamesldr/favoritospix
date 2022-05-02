@@ -1,8 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:favoritospix/app/features/login/data/repositories/auth_datasource.dart';
-import 'package:favoritospix/core/data/repositories/favorites_datasource.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import 'package:favoritospix/app/features/login/data/repositories/auth_datasource.dart';
 
 import 'features/details/details_module.dart';
 import 'features/form/form_module.dart';

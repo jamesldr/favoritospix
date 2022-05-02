@@ -1,16 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:favoritospix/app/features/home/presentation/cubit/home_cubit.dart';
 import 'package:favoritospix/app/features/home/presentation/widgets/add_pix_key_modal.dart';
 import 'package:favoritospix/app/features/home/presentation/widgets/favorite_list_item.dart';
 import 'package:favoritospix/app/features/home/presentation/widgets/home_page_header_card.dart';
 import 'package:favoritospix/core/presentation/widgets/app_scaffold.dart';
-
 import 'package:favoritospix/utils/app_assets.dart';
 import 'package:favoritospix/utils/app_theme.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -77,28 +76,29 @@ class _HomePageState extends State<HomePage> {
 class _AppBar extends PreferredSize {
   _AppBar()
       : super(
-          child: AppBar(
-            title: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AppImages.pixLogo(const Size.square(18)),
-                const SizedBox(width: 8),
-                const AutoSizeText(
-                  'Favoritos Pix',
-                  maxLines: 1,
-                ),
+          child: Builder(builder: (context) {
+            final HomeCubit cubit = Modular.get();
+            return AppBar(
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AppImages.pixLogo(const Size.square(18)),
+                  const SizedBox(width: 8),
+                  const AutoSizeText(
+                    'Favoritos Pix',
+                    maxLines: 1,
+                  ),
+                ],
+              ),
+              actions: [
+                IconButton(
+                  onPressed: cubit.signout,
+                  icon: const Icon(Icons.logout),
+                )
               ],
-            ),
-            actions: [
-              IconButton(
-                onPressed: () async => (FirebaseAuth.instance.signOut()).then(
-                  (v) => Modular.to.pushReplacementNamed('/welcome/'),
-                ),
-                icon: const Icon(Icons.logout),
-              )
-            ],
-          ),
+            );
+          }),
           preferredSize: AppBar().preferredSize,
         );
 }

@@ -16,8 +16,9 @@ class AuthDatasource {
         email: email,
         password: password,
       )
-          .then((creds) {
+          .then((creds) async {
         _firestore.collection(creds.user!.uid).doc();
+
         // .set(FavoritePixModel(pixKey: '').toJson());
       });
 
@@ -34,14 +35,17 @@ class AuthDatasource {
         email: email,
         password: password,
       )
-          .then((creds) {
+          .then((creds) async {
         _firestore.collection((creds.user!.uid)).doc();
-        // .set(FavoritePixModel(pixKey: '').toJson());
       });
 
       return 'Signed Up';
     } on FirebaseAuthException {
       rethrow;
     }
+  }
+
+  Future singOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }
